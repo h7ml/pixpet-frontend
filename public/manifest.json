@@ -1,0 +1,34 @@
+{
+  "short_name": "PixPet",
+  "name": "PixPet - Web3像素宠物NFT游戏",
+  "icons": [
+    {
+      "src": "logo.png",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "logo.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "logo.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#6D28D9",
+  "background_color": "#ffffff",
+  "description": "创建、培养和战斗你专属的像素宠物",
+  "orientation": "portrait",
+  "categories": [
+    "games",
+    "entertainment",
+    "web3"
+  ],
+  "lang": "zh-CN",
+  "prefer_related_applications": false
+}
