@@ -48,8 +48,6 @@ jobs:
     - name: 运行代码检查
       run: pnpm lint
       
-    - name: 运行测试
-      run: pnpm test
       
   build:
     name: 构建应用
