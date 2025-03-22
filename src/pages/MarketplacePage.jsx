@@ -1,237 +1,197 @@
-import React, { useState } from 'react';
-import { useAccount } from 'wagmi';
-
-// 宠物种类数据（实际项目应从API获取）
-const speciesOptions = [
-  { id: 1, name: '龙', image: 'https://placehold.co/300x300?text=Dragon' },
-  { id: 2, name: '猫', image: 'https://placehold.co/300x300?text=Cat' },
-  { id: 3, name: '机器人', image: 'https://placehold.co/300x300?text=Robot' },
-  { id: 4, name: '精灵', image: 'https://placehold.co/300x300?text=Fairy' },
-];
-
-// 颜色选项
-const colorOptions = [
-  { name: '红色', value: 'red' },
-  { name: '蓝色', value: 'blue' },
-  { name: '绿色', value: 'green' },
-  { name: '紫色', value: 'purple' },
-  { name: '金色', value: 'gold' },
-];
+import React, { useState, useEffect } from 'react';
+import { useAccount, useBalance } from 'wagmi';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch, faFilter } from '@fortawesome/free-solid-svg-icons';
+import { ConnectButton } from '@rainbow-me/rainbowkit';
+import axios from 'axios';
+// 使用更好看的NFT图片集合
+const nftImages = {
+  Dragon: [
+    'https://images.unsplash.com/photo-1608848461950-0fe51dfc41cb?w=400&h=400&fit=crop',
+    'https://images.unsplash.com/photo-1534447677768-be436bb09401?w=400&h=400&fit=crop',
+    'https://images.unsplash.com/photo-1534447677768-be436bb09401?w=400&h=400&fit=crop',
+  ],
+  Cat: [
+    'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?w=400&h=400&fit=crop',
+    'https://images.unsplash.com/photo-1573865526739-10659fec78a5?w=400&h=400&fit=crop',
+    'https://images.unsplash.com/photo-1495360010541-f48722b34f7d?w=400&h=400&fit=crop',
+  ],
+  Monster: [
+    'https://images.unsplash.com/photo-1560942485-b2a11cc13456?w=400&h=400&fit=crop',
+    'https://images.unsplash.com/photo-1554110397-9cea6277a913?w=400&h=400&fit=crop',
+    'https://images.unsplash.com/photo-1559628129-9f226fb2b7c4?w=400&h=400&fit=crop',
+  ],
+};
 
 const MarketplacePage = () => {
-  const { isConnected } = useAccount();
-  const [selectedSpecies, setSelectedSpecies] = useState(null);
-  const [selectedColor, setSelectedColor] = useState('red');
-  const [previewImage, setPreviewImage] = useState(null);
-  const [traits, setTraits] = useState([]);
-  const [isGenerating, setIsGenerating] = useState(false);
-  const [isMinting, setIsMinting] = useState(false);
+  const { isConnected, address } = useAccount();
+  const { data: balance } = useBalance({
+    address: address,
+  });
+  const [nfts, setNfts] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  // 生成宠物预览
-  const generatePreview = async () => {
-    if (!selectedSpecies) {
-      alert('请选择一个宠物种类');
-      return;
-    }
+  // 获取NFT列表
+  useEffect(() => {
+    const fetchNFTs = async () => {
+      setLoading(true);
+      try {
+        const response = await axios.get('/api/marketplace/nfts');
+        setNfts(response.data.data);
+      } catch (error) {
+        console.error('获取NFT列表失败:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    setIsGenerating(true);
+    fetchNFTs();
+  }, []);
 
-    try {
-      // 实际项目中，这应该是对AI服务的调用
-      // 这里使用了静态图像，但实际实现应该调用AI API
-      await new Promise((resolve) => setTimeout(resolve, 1500)); // 模拟网络延迟
-
-      // 设置假预览图片
-      setPreviewImage(`https://placehold.co/300x300?text=${selectedSpecies.name}+${selectedColor}`);
-    } catch (error) {
-      console.error('生成预览失败:', error);
-      alert('生成预览失败，请重试');
-    } finally {
-      setIsGenerating(false);
-    }
-  };
-
-  // 铸造宠物
-  const mintPet = async () => {
+  // 处理购买
+  const handleBuy = async (nft) => {
     if (!isConnected) {
       alert('请先连接钱包');
       return;
     }
 
-    if (!selectedSpecies || !previewImage) {
-      alert('请先生成宠物预览');
-      return;
-    }
-
-    setIsMinting(true);
-
     try {
-      // 实际项目中，这应该调用智能合约铸造NFT
-      await new Promise((resolve) => setTimeout(resolve, 2000)); // 模拟区块链交易
-      alert('宠物铸造成功！');
-
-      // 重置状态
-      setSelectedSpecies(null);
-      setSelectedColor('red');
-      setPreviewImage(null);
-      setTraits([]);
+      // 这里应该调用智能合约进行购买
+      await new Promise((resolve) => setTimeout(resolve, 1000)); // 模拟交易延迟
+      alert(`购买成功！您已获得 ${nft.name}`);
     } catch (error) {
-      console.error('铸造失败:', error);
-      alert('铸造失败，请重试');
-    } finally {
-      setIsMinting(false);
+      console.error('购买失败:', error);
+      alert('购买失败，请重试');
     }
   };
 
-  // 添加特性
-  const addTrait = (trait) => {
-    if (!traits.includes(trait)) {
-      setTraits([...traits, trait]);
-    } else {
-      setTraits(traits.filter((t) => t !== trait));
-    }
+  // 处理搜索
+  const handleSearch = (event) => {
+    setSearchTerm(event.target.value);
   };
+
+  // 筛选NFTs
+  const filteredNFTs = nfts.filter(
+    (nft) =>
+      nft.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      nft.type.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8">创建新宠物</h1>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-        {/* 左侧：宠物定制 */}
-        <div>
-          <div className="mb-6">
-            <h2 className="text-xl font-bold mb-3">选择宠物种类</h2>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              {speciesOptions.map((species) => (
-                <div
-                  key={species.id}
-                  onClick={() => setSelectedSpecies(species)}
-                  className={`cursor-pointer border rounded-lg p-2 text-center transition-all ${
-                    selectedSpecies?.id === species.id
-                      ? 'border-purple-500 bg-purple-50'
-                      : 'border-gray-200 hover:border-purple-300'
-                  }`}
-                >
-                  <img
-                    src={species.image}
-                    alt={species.name}
-                    className="w-full h-24 object-cover rounded mb-2"
-                  />
-                  <p className="text-sm font-medium">{species.name}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="mb-6">
-            <h2 className="text-xl font-bold mb-3">选择颜色</h2>
-            <div className="flex flex-wrap gap-2">
-              {colorOptions.map((color) => (
-                <button
-                  key={color.value}
-                  onClick={() => setSelectedColor(color.value)}
-                  className={`px-3 py-1 rounded-full text-sm ${
-                    selectedColor === color.value
-                      ? 'bg-purple-600 text-white'
-                      : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                  }`}
-                >
-                  {color.name}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className="mb-6">
-            <h2 className="text-xl font-bold mb-3">添加特性 (可选)</h2>
-            <div className="flex flex-wrap gap-2">
-              {['快速', '强壮', '聪明', '友好', '坚韧', '神秘'].map((trait) => (
-                <button
-                  key={trait}
-                  onClick={() => addTrait(trait)}
-                  className={`px-3 py-1 rounded-full text-sm ${
-                    traits.includes(trait)
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                  }`}
-                >
-                  {trait}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <button
-            onClick={generatePreview}
-            disabled={!selectedSpecies || isGenerating}
-            className={`w-full py-3 px-4 rounded-lg font-bold mb-3 ${
-              !selectedSpecies || isGenerating
-                ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                : 'bg-indigo-600 hover:bg-indigo-700 text-white'
-            }`}
-          >
-            {isGenerating ? '生成中...' : '生成预览'}
-          </button>
-        </div>
-
-        {/* 右侧：宠物预览和铸造 */}
-        <div className="bg-gray-50 p-6 rounded-lg">
-          <h2 className="text-xl font-bold mb-4">宠物预览</h2>
-
-          <div className="aspect-square bg-white rounded-lg flex items-center justify-center mb-4 overflow-hidden border">
-            {previewImage ? (
-              <img src={previewImage} alt="宠物预览" className="w-full h-full object-cover" />
-            ) : (
-              <div className="text-gray-400 text-center p-4">
-                {isGenerating ? (
-                  <div className="flex flex-col items-center">
-                    <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500 mb-2"></div>
-                    <p>AI 正在生成您的宠物...</p>
-                  </div>
-                ) : (
-                  <p>选择宠物类型和特性后生成预览</p>
-                )}
+      <div className="flex justify-between items-center mb-8">
+        <h1 className="text-3xl font-bold">NFT 市场</h1>
+        <div className="flex items-center space-x-4">
+          {/* 钱包余额显示 */}
+          {isConnected && balance && (
+            <div className="bg-gray-100 px-4 py-2 rounded-lg">
+              <div className="flex items-center">
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/commons/0/05/Ethereum_logo_2014.svg"
+                  alt="ETH"
+                  className="w-4 h-4 mr-2"
+                />
+                <span className="font-medium">{parseFloat(balance?.formatted).toFixed(4)} ETH</span>
               </div>
-            )}
-          </div>
-
-          {previewImage && (
-            <div className="mb-4 p-3 bg-white rounded-lg">
-              <h3 className="font-bold mb-2">宠物信息</h3>
-              <p>
-                <span className="font-medium">种类:</span> {selectedSpecies?.name}
-              </p>
-              <p>
-                <span className="font-medium">颜色:</span>{' '}
-                {colorOptions.find((c) => c.value === selectedColor)?.name}
-              </p>
-              {traits.length > 0 && (
-                <div>
-                  <span className="font-medium">特性:</span> {traits.join(', ')}
-                </div>
-              )}
             </div>
           )}
-
-          <button
-            onClick={mintPet}
-            disabled={!previewImage || isMinting || !isConnected}
-            className={`w-full py-3 px-4 rounded-lg font-bold ${
-              !previewImage || isMinting || !isConnected
-                ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                : 'bg-purple-600 hover:bg-purple-700 text-white'
-            }`}
-          >
-            {!isConnected ? '请先连接钱包' : isMinting ? '铸造中...' : '铸造宠物 (0.01 ETH)'}
+          {/* 搜索框 */}
+          <div className="relative">
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={handleSearch}
+              placeholder="搜索宠物..."
+              className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+            />
+            <FontAwesomeIcon
+              icon={faSearch}
+              className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+            />
+          </div>
+          {/* 筛选按钮 */}
+          <button className="flex items-center px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
+            <FontAwesomeIcon icon={faFilter} className="mr-2" />
+            筛选
           </button>
-
-          {previewImage && (
-            <p className="text-xs text-gray-500 mt-2 text-center">
-              铸造后，这个宠物将永久保存在区块链上并成为您的NFT资产
-            </p>
-          )}
         </div>
       </div>
+
+      {!isConnected && (
+        <div className="mb-8 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+          <div className="flex flex-col sm:flex-row items-center justify-between">
+            <p className="text-yellow-800 mb-4 sm:mb-0">连接钱包以开始交易您的像素宠物 NFT</p>
+            <ConnectButton />
+          </div>
+        </div>
+      )}
+
+      {loading ? (
+        <div className="flex justify-center items-center h-64">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-purple-500"></div>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {filteredNFTs.map((nft) => (
+            <div
+              key={nft.id}
+              className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
+            >
+              <div className="relative aspect-square">
+                <img
+                  src={nftImages[nft.type][Math.floor(Math.random() * nftImages[nft.type].length)]}
+                  alt={nft.name}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute top-3 right-3">
+                  <span
+                    className={`px-2 py-1 rounded-full text-xs font-semibold ${
+                      nft.rarity === '传说'
+                        ? 'bg-yellow-400 text-yellow-900'
+                        : nft.rarity === '史诗'
+                          ? 'bg-purple-400 text-purple-900'
+                          : nft.rarity === '稀有'
+                            ? 'bg-blue-400 text-blue-900'
+                            : 'bg-gray-400 text-gray-900'
+                    }`}
+                  >
+                    {nft.rarity}
+                  </span>
+                </div>
+              </div>
+              <div className="p-4">
+                <h3 className="text-lg font-bold mb-2">{nft.name}</h3>
+                <div className="flex justify-between items-center mb-3">
+                  <span className="text-sm text-gray-600">等级 {nft.level}</span>
+                  <span className="text-sm font-medium text-purple-600">{nft.type}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center">
+                    <img
+                      src="https://upload.wikimedia.org/wikipedia/commons/0/05/Ethereum_logo_2014.svg"
+                      alt="ETH"
+                      className="w-4 h-4 mr-1"
+                    />
+                    <span className="font-bold">{nft.price} ETH</span>
+                  </div>
+                  <button
+                    onClick={() => handleBuy(nft)}
+                    disabled={!isConnected}
+                    className={`px-4 py-2 rounded-lg transition-colors ${
+                      isConnected
+                        ? 'bg-purple-600 text-white hover:bg-purple-700'
+                        : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                    }`}
+                  >
+                    {isConnected ? '购买' : '请先连接钱包'}
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

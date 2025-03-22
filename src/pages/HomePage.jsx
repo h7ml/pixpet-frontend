@@ -1,90 +1,69 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAccount } from 'wagmi';
+import { ConnectButton } from '@rainbow-me/rainbowkit';
 
 const HomePage = () => {
   const { isConnected } = useAccount();
 
   return (
-    <div className="flex flex-col items-center">
-      {/* 英雄区域 */}
-      <div className="w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 py-16 px-4 text-center text-white">
-        <h1 className="text-4xl md:text-6xl font-bold mb-4">欢迎来到 PixPet 世界</h1>
-        <p className="text-xl md:text-2xl mb-8">创建、培养和战斗你的像素宠物</p>
-
-        {isConnected ? (
-          <Link
-            to="/my-pets"
-            className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-3 px-8 rounded-full text-lg transition-colors"
-          >
-            进入游戏
-          </Link>
-        ) : (
-          <button className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-3 px-8 rounded-full text-lg transition-colors">
-            连接钱包开始
-          </button>
-        )}
-      </div>
-
-      {/* 功能特点 */}
-      <div className="container mx-auto py-16 px-4">
-        <h2 className="text-3xl font-bold text-center mb-12">核心功能</h2>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="bg-white p-6 rounded-lg shadow-lg text-center">
-            <div className="w-20 h-20 mx-auto bg-purple-100 rounded-full flex items-center justify-center mb-4">
-              <span className="text-3xl">🎨</span>
-            </div>
-            <h3 className="text-xl font-bold mb-2">AI 宠物生成</h3>
-            <p className="text-gray-600">使用先进的 AI 技术生成独特的像素风格宠物</p>
-          </div>
-
-          <div className="bg-white p-6 rounded-lg shadow-lg text-center">
-            <div className="w-20 h-20 mx-auto bg-blue-100 rounded-full flex items-center justify-center mb-4">
-              <span className="text-3xl">⛓️</span>
-            </div>
-            <h3 className="text-xl font-bold mb-2">链上养成</h3>
-            <p className="text-gray-600">在区块链上培养和发展你的宠物属性与技能</p>
-          </div>
-
-          <div className="bg-white p-6 rounded-lg shadow-lg text-center">
-            <div className="w-20 h-20 mx-auto bg-pink-100 rounded-full flex items-center justify-center mb-4">
-              <span className="text-3xl">⚔️</span>
-            </div>
-            <h3 className="text-xl font-bold mb-2">社交战斗</h3>
-            <p className="text-gray-600">与其他玩家的宠物进行互动、交易和战斗</p>
+    <div className="min-h-[calc(100vh-4rem)] flex flex-col">
+      {/* Hero Section */}
+      <div className="flex-1 flex items-center justify-center bg-gradient-to-br from-purple-500 to-blue-500 text-white">
+        <div className="container mx-auto px-4 py-16 text-center">
+          <h1 className="text-4xl md:text-6xl font-bold mb-6">欢迎来到 PixPet 世界</h1>
+          <p className="text-xl md:text-2xl mb-12 max-w-2xl mx-auto">
+            创建、培养和战斗你的像素宠物，在区块链上开启一段奇妙的冒险！
+          </p>
+          <div className="space-y-4 md:space-y-0 md:space-x-4">
+            {isConnected ? (
+              <Link
+                to="/marketplace"
+                className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-3 px-8 rounded-full text-lg transition-colors inline-block"
+              >
+                开始探索
+              </Link>
+            ) : (
+              <ConnectButton.Custom>
+                {({ openConnectModal }) => (
+                  <button
+                    onClick={openConnectModal}
+                    className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-3 px-8 rounded-full text-lg transition-colors"
+                  >
+                    连接钱包开始
+                  </button>
+                )}
+              </ConnectButton.Custom>
+            )}
           </div>
         </div>
       </div>
 
-      {/* 如何开始 */}
-      <div className="w-full bg-gray-100 py-16 px-4">
-        <div className="container mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-12">如何开始</h2>
-
-          <div className="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-12">
-            <div className="flex flex-col items-center text-center max-w-xs">
-              <div className="w-12 h-12 bg-indigo-500 text-white rounded-full flex items-center justify-center text-xl font-bold mb-4">
-                1
+      {/* Features Section */}
+      <div className="bg-white py-16">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-12">游戏特色</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="text-center">
+              <div className="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl">🎮</span>
               </div>
-              <h3 className="text-xl font-bold mb-2">连接钱包</h3>
-              <p className="text-gray-600">使用 MetaMask、Argent 等多种钱包连接</p>
+              <h3 className="text-xl font-semibold mb-2">独特玩法</h3>
+              <p className="text-gray-600">结合传统养成游戏与区块链技术，打造独特的游戏体验</p>
             </div>
-
-            <div className="flex flex-col items-center text-center max-w-xs">
-              <div className="w-12 h-12 bg-indigo-500 text-white rounded-full flex items-center justify-center text-xl font-bold mb-4">
-                2
+            <div className="text-center">
+              <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl">💎</span>
               </div>
-              <h3 className="text-xl font-bold mb-2">铸造宠物</h3>
-              <p className="text-gray-600">创建你的第一个 PixPet 宠物</p>
+              <h3 className="text-xl font-semibold mb-2">NFT 资产</h3>
+              <p className="text-gray-600">每个像素宠物都是独一无二的 NFT，真正属于你的数字资产</p>
             </div>
-
-            <div className="flex flex-col items-center text-center max-w-xs">
-              <div className="w-12 h-12 bg-indigo-500 text-white rounded-full flex items-center justify-center text-xl font-bold mb-4">
-                3
+            <div className="text-center">
+              <div className="bg-yellow-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl">🏆</span>
               </div>
-              <h3 className="text-xl font-bold mb-2">开始冒险</h3>
-              <p className="text-gray-600">培养宠物并参与社区活动</p>
+              <h3 className="text-xl font-semibold mb-2">竞技对战</h3>
+              <p className="text-gray-600">参与刺激的宠物对战，赢取奖励，提升排名</p>
             </div>
           </div>
         </div>
