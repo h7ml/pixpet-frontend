@@ -5,27 +5,27 @@ import { useAccount } from 'wagmi';
 // 假数据，实际应从合约获取
 const dummyPet = {
   id: 1,
-  name: "像素龙",
-  image: "https://placehold.co/500x500?text=PixelDragon",
+  name: '像素龙',
+  image: 'https://placehold.co/500x500?text=PixelDragon',
   level: 5,
-  species: "Dragon",
-  traits: ["Fire", "Brave"],
+  species: 'Dragon',
+  traits: ['Fire', 'Brave'],
   experience: 120,
-  owner: "0x123...789",
-  rarity: "稀有",
-  created: "2023-05-12",
+  owner: '0x123...789',
+  rarity: '稀有',
+  created: '2023-05-12',
   strength: 80,
   agility: 65,
   intelligence: 70,
   charisma: 50,
   luck: 60,
   history: [
-    { type: "mint", date: "2023-05-12 12:30", data: "宠物被创建" },
-    { type: "battle", date: "2023-05-13 14:15", data: "与 雷霆猫 战斗并获胜" },
-    { type: "levelup", date: "2023-05-14 09:45", data: "升级到 Lv.4" },
-    { type: "battle", date: "2023-05-15 16:20", data: "与 冰霜龙 战斗并失败" },
-    { type: "levelup", date: "2023-05-18 11:10", data: "升级到 Lv.5" }
-  ]
+    { type: 'mint', date: '2023-05-12 12:30', data: '宠物被创建' },
+    { type: 'battle', date: '2023-05-13 14:15', data: '与 雷霆猫 战斗并获胜' },
+    { type: 'levelup', date: '2023-05-14 09:45', data: '升级到 Lv.4' },
+    { type: 'battle', date: '2023-05-15 16:20', data: '与 冰霜龙 战斗并失败' },
+    { type: 'levelup', date: '2023-05-18 11:10', data: '升级到 Lv.5' },
+  ],
 };
 
 const PetDetailPage = () => {
@@ -68,14 +68,18 @@ const PetDetailPage = () => {
     setTimeout(() => {
       // 实际项目中，这里应该调用AI服务获取宠物响应
       const responses = [
-        "我喜欢和你在一起！",
-        "我今天感觉很有活力！想去战斗！",
-        "我觉得我快要升级了！",
-        "我想认识其他宠物朋友！",
-        "谢谢你照顾我！"
+        '我喜欢和你在一起！',
+        '我今天感觉很有活力！想去战斗！',
+        '我觉得我快要升级了！',
+        '我想认识其他宠物朋友！',
+        '谢谢你照顾我！',
       ];
       const randomResponse = responses[Math.floor(Math.random() * responses.length)];
-      setChatHistory([...chatHistory, { sender: 'user', text: chatMessage }, { sender: 'pet', text: randomResponse }]);
+      setChatHistory([
+        ...chatHistory,
+        { sender: 'user', text: chatMessage },
+        { sender: 'pet', text: randomResponse },
+      ]);
     }, 1000);
 
     // 清空输入框
@@ -117,11 +121,7 @@ const PetDetailPage = () => {
         {/* 左侧：宠物图片和基本信息 */}
         <div className="md:col-span-1">
           <div className="bg-white p-6 rounded-lg shadow-lg">
-            <img
-              src={pet.image}
-              alt={pet.name}
-              className="w-full h-auto rounded-lg mb-4"
-            />
+            <img src={pet.image} alt={pet.name} className="w-full h-auto rounded-lg mb-4" />
             <h1 className="text-2xl font-bold mb-2">{pet.name}</h1>
             <div className="mb-4">
               <span className="inline-block bg-purple-100 text-purple-800 text-sm font-semibold px-2.5 py-0.5 rounded-full mr-2">
@@ -188,29 +188,32 @@ const PetDetailPage = () => {
             {/* 标签页导航 */}
             <div className="flex border-b">
               <button
-                className={`flex-1 py-3 font-medium ${activeTab === 'stats'
+                className={`flex-1 py-3 font-medium ${
+                  activeTab === 'stats'
                     ? 'text-purple-600 border-b-2 border-purple-600'
                     : 'text-gray-500 hover:text-purple-500'
-                  }`}
+                }`}
                 onClick={() => setActiveTab('stats')}
               >
                 属性
               </button>
               <button
-                className={`flex-1 py-3 font-medium ${activeTab === 'history'
+                className={`flex-1 py-3 font-medium ${
+                  activeTab === 'history'
                     ? 'text-purple-600 border-b-2 border-purple-600'
                     : 'text-gray-500 hover:text-purple-500'
-                  }`}
+                }`}
                 onClick={() => setActiveTab('history')}
               >
                 历史记录
               </button>
               {isOwner && (
                 <button
-                  className={`flex-1 py-3 font-medium ${activeTab === 'chat'
+                  className={`flex-1 py-3 font-medium ${
+                    activeTab === 'chat'
                       ? 'text-purple-600 border-b-2 border-purple-600'
                       : 'text-gray-500 hover:text-purple-500'
-                    }`}
+                  }`}
                   onClick={() => setActiveTab('chat')}
                 >
                   聊天
@@ -293,8 +296,23 @@ const PetDetailPage = () => {
                   <div className="bg-gray-50 p-4 rounded-lg">
                     <h3 className="font-semibold mb-2">宠物专长</h3>
                     <p className="text-gray-600">
-                      这只{pet.species}在{pet.strength > 70 ? '力量' : pet.agility > 70 ? '敏捷' : pet.intelligence > 70 ? '智力' : '平衡性'}方面表现出色。
-                      适合参加{pet.strength > 70 ? '力量型' : pet.agility > 70 ? '速度型' : pet.intelligence > 70 ? '战术型' : '全能型'}战斗。
+                      这只{pet.species}在
+                      {pet.strength > 70
+                        ? '力量'
+                        : pet.agility > 70
+                          ? '敏捷'
+                          : pet.intelligence > 70
+                            ? '智力'
+                            : '平衡性'}
+                      方面表现出色。 适合参加
+                      {pet.strength > 70
+                        ? '力量型'
+                        : pet.agility > 70
+                          ? '速度型'
+                          : pet.intelligence > 70
+                            ? '战术型'
+                            : '全能型'}
+                      战斗。
                     </p>
                   </div>
                 </div>
@@ -312,14 +330,15 @@ const PetDetailPage = () => {
                           {event.date}
                         </time>
                         <h3 className="text-lg font-semibold text-gray-900">
-                          {event.type === 'mint' ? '宠物创建' :
-                            event.type === 'battle' ? '战斗记录' :
-                              event.type === 'levelup' ? '等级提升' :
-                                '活动记录'}
+                          {event.type === 'mint'
+                            ? '宠物创建'
+                            : event.type === 'battle'
+                              ? '战斗记录'
+                              : event.type === 'levelup'
+                                ? '等级提升'
+                                : '活动记录'}
                         </h3>
-                        <p className="mb-4 text-base font-normal text-gray-600">
-                          {event.data}
-                        </p>
+                        <p className="mb-4 text-base font-normal text-gray-600">{event.data}</p>
                       </div>
                     ))}
                   </div>
@@ -332,22 +351,22 @@ const PetDetailPage = () => {
                   <h2 className="text-lg font-bold mb-4">与{pet.name}聊天</h2>
                   <div className="bg-gray-50 rounded-lg p-4 h-64 overflow-y-auto mb-4">
                     {chatHistory.length === 0 ? (
-                      <p className="text-gray-500 text-center my-8">
-                        开始和你的宠物聊天吧！
-                      </p>
+                      <p className="text-gray-500 text-center my-8">开始和你的宠物聊天吧！</p>
                     ) : (
                       <div className="space-y-3">
                         {chatHistory.map((msg, index) => (
                           <div
                             key={index}
-                            className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'
-                              }`}
+                            className={`flex ${
+                              msg.sender === 'user' ? 'justify-end' : 'justify-start'
+                            }`}
                           >
                             <div
-                              className={`max-w-3/4 rounded-lg px-4 py-2 ${msg.sender === 'user'
+                              className={`max-w-3/4 rounded-lg px-4 py-2 ${
+                                msg.sender === 'user'
                                   ? 'bg-purple-500 text-white'
                                   : 'bg-gray-200 text-gray-800'
-                                }`}
+                              }`}
                             >
                               <p>{msg.text}</p>
                             </div>
@@ -382,4 +401,4 @@ const PetDetailPage = () => {
   );
 };
 
-export default PetDetailPage; 
+export default PetDetailPage;

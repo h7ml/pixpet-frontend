@@ -36,8 +36,9 @@ const Navbar = () => {
                 <Link
                   key={item.path}
                   to={item.path}
-                  className={`font-medium hover:text-yellow-300 transition-colors ${location.pathname === item.path ? 'text-yellow-300' : ''
-                    }`}
+                  className={`font-medium hover:text-yellow-300 transition-colors ${
+                    location.pathname === item.path ? 'text-yellow-300' : ''
+                  }`}
                 >
                   {item.label}
                 </Link>
@@ -54,4 +55,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar; 
+export default Navbar;

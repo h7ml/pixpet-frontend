@@ -43,9 +43,9 @@ const config = createConfig({
   autoConnect: true,
   publicClient: createPublicClient({
     chain: mainnet,
-    transport: http()
+    transport: http(),
   }),
-  connectors
+  connectors,
 });
 
 function App() {
@@ -72,4 +72,4 @@ function App() {
   );
 }
 
-export default App; 
+export default App;

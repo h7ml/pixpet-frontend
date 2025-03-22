@@ -3,25 +3,25 @@ import { useAccount } from 'wagmi';
 
 // 宠物种类数据（实际项目应从API获取）
 const speciesOptions = [
-  { id: 1, name: "龙", image: "https://placehold.co/300x300?text=Dragon" },
-  { id: 2, name: "猫", image: "https://placehold.co/300x300?text=Cat" },
-  { id: 3, name: "机器人", image: "https://placehold.co/300x300?text=Robot" },
-  { id: 4, name: "精灵", image: "https://placehold.co/300x300?text=Fairy" },
+  { id: 1, name: '龙', image: 'https://placehold.co/300x300?text=Dragon' },
+  { id: 2, name: '猫', image: 'https://placehold.co/300x300?text=Cat' },
+  { id: 3, name: '机器人', image: 'https://placehold.co/300x300?text=Robot' },
+  { id: 4, name: '精灵', image: 'https://placehold.co/300x300?text=Fairy' },
 ];
 
 // 颜色选项
 const colorOptions = [
-  { name: "红色", value: "red" },
-  { name: "蓝色", value: "blue" },
-  { name: "绿色", value: "green" },
-  { name: "紫色", value: "purple" },
-  { name: "金色", value: "gold" },
+  { name: '红色', value: 'red' },
+  { name: '蓝色', value: 'blue' },
+  { name: '绿色', value: 'green' },
+  { name: '紫色', value: 'purple' },
+  { name: '金色', value: 'gold' },
 ];
 
 const MarketplacePage = () => {
   const { isConnected } = useAccount();
   const [selectedSpecies, setSelectedSpecies] = useState(null);
-  const [selectedColor, setSelectedColor] = useState("red");
+  const [selectedColor, setSelectedColor] = useState('red');
   const [previewImage, setPreviewImage] = useState(null);
   const [traits, setTraits] = useState([]);
   const [isGenerating, setIsGenerating] = useState(false);
@@ -30,7 +30,7 @@ const MarketplacePage = () => {
   // 生成宠物预览
   const generatePreview = async () => {
     if (!selectedSpecies) {
-      alert("请选择一个宠物种类");
+      alert('请选择一个宠物种类');
       return;
     }
 
@@ -39,13 +39,13 @@ const MarketplacePage = () => {
     try {
       // 实际项目中，这应该是对AI服务的调用
       // 这里使用了静态图像，但实际实现应该调用AI API
-      await new Promise(resolve => setTimeout(resolve, 1500)); // 模拟网络延迟
+      await new Promise((resolve) => setTimeout(resolve, 1500)); // 模拟网络延迟
 
       // 设置假预览图片
       setPreviewImage(`https://placehold.co/300x300?text=${selectedSpecies.name}+${selectedColor}`);
     } catch (error) {
-      console.error("生成预览失败:", error);
-      alert("生成预览失败，请重试");
+      console.error('生成预览失败:', error);
+      alert('生成预览失败，请重试');
     } finally {
       setIsGenerating(false);
     }
@@ -54,12 +54,12 @@ const MarketplacePage = () => {
   // 铸造宠物
   const mintPet = async () => {
     if (!isConnected) {
-      alert("请先连接钱包");
+      alert('请先连接钱包');
       return;
     }
 
     if (!selectedSpecies || !previewImage) {
-      alert("请先生成宠物预览");
+      alert('请先生成宠物预览');
       return;
     }
 
@@ -67,17 +67,17 @@ const MarketplacePage = () => {
 
     try {
       // 实际项目中，这应该调用智能合约铸造NFT
-      await new Promise(resolve => setTimeout(resolve, 2000)); // 模拟区块链交易
-      alert("宠物铸造成功！");
+      await new Promise((resolve) => setTimeout(resolve, 2000)); // 模拟区块链交易
+      alert('宠物铸造成功！');
 
       // 重置状态
       setSelectedSpecies(null);
-      setSelectedColor("red");
+      setSelectedColor('red');
       setPreviewImage(null);
       setTraits([]);
     } catch (error) {
-      console.error("铸造失败:", error);
-      alert("铸造失败，请重试");
+      console.error('铸造失败:', error);
+      alert('铸造失败，请重试');
     } finally {
       setIsMinting(false);
     }
@@ -88,7 +88,7 @@ const MarketplacePage = () => {
     if (!traits.includes(trait)) {
       setTraits([...traits, trait]);
     } else {
-      setTraits(traits.filter(t => t !== trait));
+      setTraits(traits.filter((t) => t !== trait));
     }
   };
 
@@ -102,14 +102,15 @@ const MarketplacePage = () => {
           <div className="mb-6">
             <h2 className="text-xl font-bold mb-3">选择宠物种类</h2>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              {speciesOptions.map(species => (
+              {speciesOptions.map((species) => (
                 <div
                   key={species.id}
                   onClick={() => setSelectedSpecies(species)}
-                  className={`cursor-pointer border rounded-lg p-2 text-center transition-all ${selectedSpecies?.id === species.id
-                    ? 'border-purple-500 bg-purple-50'
-                    : 'border-gray-200 hover:border-purple-300'
-                    }`}
+                  className={`cursor-pointer border rounded-lg p-2 text-center transition-all ${
+                    selectedSpecies?.id === species.id
+                      ? 'border-purple-500 bg-purple-50'
+                      : 'border-gray-200 hover:border-purple-300'
+                  }`}
                 >
                   <img
                     src={species.image}
@@ -125,14 +126,15 @@ const MarketplacePage = () => {
           <div className="mb-6">
             <h2 className="text-xl font-bold mb-3">选择颜色</h2>
             <div className="flex flex-wrap gap-2">
-              {colorOptions.map(color => (
+              {colorOptions.map((color) => (
                 <button
                   key={color.value}
                   onClick={() => setSelectedColor(color.value)}
-                  className={`px-3 py-1 rounded-full text-sm ${selectedColor === color.value
-                    ? 'bg-purple-600 text-white'
-                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                    }`}
+                  className={`px-3 py-1 rounded-full text-sm ${
+                    selectedColor === color.value
+                      ? 'bg-purple-600 text-white'
+                      : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                  }`}
                 >
                   {color.name}
                 </button>
@@ -143,14 +145,15 @@ const MarketplacePage = () => {
           <div className="mb-6">
             <h2 className="text-xl font-bold mb-3">添加特性 (可选)</h2>
             <div className="flex flex-wrap gap-2">
-              {["快速", "强壮", "聪明", "友好", "坚韧", "神秘"].map(trait => (
+              {['快速', '强壮', '聪明', '友好', '坚韧', '神秘'].map((trait) => (
                 <button
                   key={trait}
                   onClick={() => addTrait(trait)}
-                  className={`px-3 py-1 rounded-full text-sm ${traits.includes(trait)
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                    }`}
+                  className={`px-3 py-1 rounded-full text-sm ${
+                    traits.includes(trait)
+                      ? 'bg-blue-600 text-white'
+                      : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                  }`}
                 >
                   {trait}
                 </button>
@@ -161,10 +164,11 @@ const MarketplacePage = () => {
           <button
             onClick={generatePreview}
             disabled={!selectedSpecies || isGenerating}
-            className={`w-full py-3 px-4 rounded-lg font-bold mb-3 ${!selectedSpecies || isGenerating
-              ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-              : 'bg-indigo-600 hover:bg-indigo-700 text-white'
-              }`}
+            className={`w-full py-3 px-4 rounded-lg font-bold mb-3 ${
+              !selectedSpecies || isGenerating
+                ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                : 'bg-indigo-600 hover:bg-indigo-700 text-white'
+            }`}
           >
             {isGenerating ? '生成中...' : '生成预览'}
           </button>
@@ -194,12 +198,16 @@ const MarketplacePage = () => {
           {previewImage && (
             <div className="mb-4 p-3 bg-white rounded-lg">
               <h3 className="font-bold mb-2">宠物信息</h3>
-              <p><span className="font-medium">种类:</span> {selectedSpecies?.name}</p>
-              <p><span className="font-medium">颜色:</span> {colorOptions.find(c => c.value === selectedColor)?.name}</p>
+              <p>
+                <span className="font-medium">种类:</span> {selectedSpecies?.name}
+              </p>
+              <p>
+                <span className="font-medium">颜色:</span>{' '}
+                {colorOptions.find((c) => c.value === selectedColor)?.name}
+              </p>
               {traits.length > 0 && (
                 <div>
-                  <span className="font-medium">特性:</span>{' '}
-                  {traits.join(', ')}
+                  <span className="font-medium">特性:</span> {traits.join(', ')}
                 </div>
               )}
             </div>
@@ -208,10 +216,11 @@ const MarketplacePage = () => {
           <button
             onClick={mintPet}
             disabled={!previewImage || isMinting || !isConnected}
-            className={`w-full py-3 px-4 rounded-lg font-bold ${!previewImage || isMinting || !isConnected
-              ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-              : 'bg-purple-600 hover:bg-purple-700 text-white'
-              }`}
+            className={`w-full py-3 px-4 rounded-lg font-bold ${
+              !previewImage || isMinting || !isConnected
+                ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                : 'bg-purple-600 hover:bg-purple-700 text-white'
+            }`}
           >
             {!isConnected ? '请先连接钱包' : isMinting ? '铸造中...' : '铸造宠物 (0.01 ETH)'}
           </button>
@@ -227,4 +236,4 @@ const MarketplacePage = () => {
   );
 };
 
-export default MarketplacePage; 
+export default MarketplacePage;

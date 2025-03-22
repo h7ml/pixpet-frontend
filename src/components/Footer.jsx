@@ -17,30 +17,108 @@ const Footer = () => {
             <div>
               <h3 className="text-lg font-semibold mb-3">链接</h3>
               <ul className="space-y-2">
-                <li><Link to="/" className="text-gray-400 hover:text-white transition-colors">首页</Link></li>
-                <li><Link to="/marketplace" className="text-gray-400 hover:text-white transition-colors">市场</Link></li>
-                <li><Link to="/my-pets" className="text-gray-400 hover:text-white transition-colors">我的宠物</Link></li>
-                <li><Link to="/battle-arena" className="text-gray-400 hover:text-white transition-colors">战斗竞技场</Link></li>
+                <li>
+                  <Link to="/" className="text-gray-400 hover:text-white transition-colors">
+                    首页
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/marketplace"
+                    className="text-gray-400 hover:text-white transition-colors"
+                  >
+                    市场
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/my-pets" className="text-gray-400 hover:text-white transition-colors">
+                    我的宠物
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/battle-arena"
+                    className="text-gray-400 hover:text-white transition-colors"
+                  >
+                    战斗竞技场
+                  </Link>
+                </li>
               </ul>
             </div>
 
             <div>
               <h3 className="text-lg font-semibold mb-3">资源</h3>
               <ul className="space-y-2">
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">文档</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">白皮书</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">GitHub</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">帮助中心</a></li>
+                <li>
+                  <a
+                    href="https://docs.pixpet.h7ml.cn"
+                    className="text-gray-400 hover:text-white transition-colors"
+                  >
+                    文档
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://whitepaper.pixpet.h7ml.cn"
+                    className="text-gray-400 hover:text-white transition-colors"
+                  >
+                    白皮书
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://github.com/h7ml/pixpet-frontend"
+                    className="text-gray-400 hover:text-white transition-colors"
+                  >
+                    GitHub
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://help.pixpet.h7ml.cn"
+                    className="text-gray-400 hover:text-white transition-colors"
+                  >
+                    帮助中心
+                  </a>
+                </li>
               </ul>
             </div>
 
             <div className="col-span-2 md:col-span-1">
               <h3 className="text-lg font-semibold mb-3">联系我们</h3>
               <ul className="space-y-2">
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Twitter</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Discord</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Telegram</a></li>
-                <li><a href="mailto:support@pixpet.io" className="text-gray-400 hover:text-white transition-colors">support@pixpet.io</a></li>
+                <li>
+                  <a
+                    href="https://twitter.com/PixPetNFT"
+                    className="text-gray-400 hover:text-white transition-colors"
+                  >
+                    Twitter
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://discord.gg/pixpet"
+                    className="text-gray-400 hover:text-white transition-colors"
+                  >
+                    Discord
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://t.me/pixpet"
+                    className="text-gray-400 hover:text-white transition-colors"
+                  >
+                    Telegram
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="mailto:hello@pixpet.h7ml.cn"
+                    className="text-gray-400 hover:text-white transition-colors"
+                  >
+                    hello@pixpet.h7ml.cn
+                  </a>
+                </li>
               </ul>
             </div>
           </div>
@@ -51,13 +129,22 @@ const Footer = () => {
             &copy; {new Date().getFullYear()} PixPet. 保留所有权利。
           </p>
           <div className="flex space-x-4 mt-4 md:mt-0">
-            <a href="#" className="text-gray-400 hover:text-white transition-colors">
+            <a
+              href="https://pixpet.h7ml.cn/privacy"
+              className="text-gray-400 hover:text-white transition-colors"
+            >
               隐私政策
             </a>
-            <a href="#" className="text-gray-400 hover:text-white transition-colors">
+            <a
+              href="https://pixpet.h7ml.cn/terms"
+              className="text-gray-400 hover:text-white transition-colors"
+            >
               服务条款
             </a>
-            <a href="#" className="text-gray-400 hover:text-white transition-colors">
+            <a
+              href="https://pixpet.h7ml.cn/contracts"
+              className="text-gray-400 hover:text-white transition-colors"
+            >
               合约地址
             </a>
           </div>
@@ -67,4 +154,4 @@ const Footer = () => {
   );
 };
 
-export default Footer; 
+export default Footer;

@@ -20,9 +20,7 @@ const HomePage = () => {
             进入游戏
           </Link>
         ) : (
-          <button
-            className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-3 px-8 rounded-full text-lg transition-colors"
-          >
+          <button className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-3 px-8 rounded-full text-lg transition-colors">
             连接钱包开始
           </button>
         )}
@@ -66,19 +64,25 @@ const HomePage = () => {
 
           <div className="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-12">
             <div className="flex flex-col items-center text-center max-w-xs">
-              <div className="w-12 h-12 bg-indigo-500 text-white rounded-full flex items-center justify-center text-xl font-bold mb-4">1</div>
+              <div className="w-12 h-12 bg-indigo-500 text-white rounded-full flex items-center justify-center text-xl font-bold mb-4">
+                1
+              </div>
               <h3 className="text-xl font-bold mb-2">连接钱包</h3>
               <p className="text-gray-600">使用 MetaMask、Argent 等多种钱包连接</p>
             </div>
 
             <div className="flex flex-col items-center text-center max-w-xs">
-              <div className="w-12 h-12 bg-indigo-500 text-white rounded-full flex items-center justify-center text-xl font-bold mb-4">2</div>
+              <div className="w-12 h-12 bg-indigo-500 text-white rounded-full flex items-center justify-center text-xl font-bold mb-4">
+                2
+              </div>
               <h3 className="text-xl font-bold mb-2">铸造宠物</h3>
               <p className="text-gray-600">创建你的第一个 PixPet 宠物</p>
             </div>
 
             <div className="flex flex-col items-center text-center max-w-xs">
-              <div className="w-12 h-12 bg-indigo-500 text-white rounded-full flex items-center justify-center text-xl font-bold mb-4">3</div>
+              <div className="w-12 h-12 bg-indigo-500 text-white rounded-full flex items-center justify-center text-xl font-bold mb-4">
+                3
+              </div>
               <h3 className="text-xl font-bold mb-2">开始冒险</h3>
               <p className="text-gray-600">培养宠物并参与社区活动</p>
             </div>
@@ -89,4 +93,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage; 
+export default HomePage;

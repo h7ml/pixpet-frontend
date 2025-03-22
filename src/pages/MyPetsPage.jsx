@@ -6,22 +6,22 @@ import { Link } from 'react-router-dom';
 const dummyPets = [
   {
     id: 1,
-    name: "像素龙",
-    image: "https://placehold.co/300x300?text=PixelDragon",
+    name: '像素龙',
+    image: 'https://placehold.co/300x300?text=PixelDragon',
     level: 5,
-    species: "Dragon",
-    traits: ["Fire", "Brave"],
-    experience: 120
+    species: 'Dragon',
+    traits: ['Fire', 'Brave'],
+    experience: 120,
   },
   {
     id: 2,
-    name: "电子猫",
-    image: "https://placehold.co/300x300?text=CyberCat",
+    name: '电子猫',
+    image: 'https://placehold.co/300x300?text=CyberCat',
     level: 3,
-    species: "Cat",
-    traits: ["Electric", "Timid"],
-    experience: 75
-  }
+    species: 'Cat',
+    traits: ['Electric', 'Timid'],
+    experience: 75,
+  },
 ];
 
 const MyPetsPage = () => {
@@ -91,13 +91,9 @@ const MyPetsPage = () => {
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {pets.map(pet => (
+          {pets.map((pet) => (
             <div key={pet.id} className="bg-white rounded-lg shadow-lg overflow-hidden">
-              <img
-                src={pet.image}
-                alt={pet.name}
-                className="w-full h-48 object-cover"
-              />
+              <img src={pet.image} alt={pet.name} className="w-full h-48 object-cover" />
               <div className="p-4">
                 <div className="flex justify-between items-center mb-2">
                   <h2 className="text-xl font-bold">{pet.name}</h2>
@@ -151,4 +147,4 @@ const MyPetsPage = () => {
   );
 };
 
-export default MyPetsPage; 
+export default MyPetsPage;

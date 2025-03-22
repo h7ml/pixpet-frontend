@@ -9,7 +9,7 @@ import PixPetMarketplaceABI from '../contracts/PixPetMarketplace.json';
 import PixPetBattleABI from '../contracts/PixPetBattle.json';
 
 // PixPetNFT 合约hook
-export const usePixPetNFTContract = () => {
+const usePixPetNFTContract = () => {
   const { PixPetNFTAddress } = useContractAddresses();
 
   // 读取合约状态
@@ -50,7 +50,7 @@ export const usePixPetNFTContract = () => {
       args: [quantity, speciesId],
       ...options,
       overrides: {
-        value: ethers.utils.parseEther("0.01"),
+        value: ethers.utils.parseEther('0.01'),
         ...(options.overrides || {}),
       },
     });
@@ -89,7 +89,7 @@ export const usePixPetNFTContract = () => {
 };
 
 // PixPetTraits 合约hook
-export const usePixPetTraitsContract = () => {
+const usePixPetTraitsContract = () => {
   const { PixPetTraitsAddress } = useContractAddresses();
 
   // 读取合约状态
@@ -147,7 +147,7 @@ export const usePixPetTraitsContract = () => {
 };
 
 // PixPetMarketplace 合约hook
-export const usePixPetMarketplaceContract = () => {
+const usePixPetMarketplaceContract = () => {
   const { PixPetMarketplaceAddress } = useContractAddresses();
 
   // 读取合约状态
@@ -233,7 +233,7 @@ export const usePixPetMarketplaceContract = () => {
 };
 
 // PixPetBattle 合约hook
-export const usePixPetBattleContract = () => {
+const usePixPetBattleContract = () => {
   const { PixPetBattleAddress } = useContractAddresses();
 
   // 读取合约状态
@@ -317,9 +317,10 @@ export const usePixPetBattleContract = () => {
   };
 };
 
-export default {
+// 导出一个包含所有合约hooks的对象
+export {
   usePixPetNFTContract,
   usePixPetTraitsContract,
   usePixPetMarketplaceContract,
   usePixPetBattleContract,
-}; 
+};

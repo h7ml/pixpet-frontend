@@ -7,29 +7,29 @@ const CONTRACT_ADDRESSES = {
     PixPetNFT: '0xA123B456C789D012E345F678G901H234I567J8',
     PixPetTraits: '0xB234C567D890E123F456G789H012I345J678K',
     PixPetMarketplace: '0xC345D678E901F234G567H890I123J456K789L',
-    PixPetBattle: '0xD456E789F012G345H678I901J234K567L890M'
+    PixPetBattle: '0xD456E789F012G345H678I901J234K567L890M',
   },
   // Monad测试网
   31338: {
     PixPetNFT: '0x1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b',
     PixPetTraits: '0x2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1',
     PixPetMarketplace: '0x3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2',
-    PixPetBattle: '0x4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3'
+    PixPetBattle: '0x4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3',
   },
   // 以太坊主网（保留，但本项目专注于Monad链）
   1: {
     PixPetNFT: '',
     PixPetTraits: '',
     PixPetMarketplace: '',
-    PixPetBattle: ''
+    PixPetBattle: '',
   },
   // Goerli测试网（保留，但本项目专注于Monad链）
   5: {
     PixPetNFT: '',
     PixPetTraits: '',
     PixPetMarketplace: '',
-    PixPetBattle: ''
-  }
+    PixPetBattle: '',
+  },
 };
 
 // 创建hook获取当前网络的合约地址
@@ -49,8 +49,8 @@ export const useContractAddresses = () => {
     PixPetNFTAddress: getContractAddress('PixPetNFT'),
     PixPetTraitsAddress: getContractAddress('PixPetTraits'),
     PixPetMarketplaceAddress: getContractAddress('PixPetMarketplace'),
-    PixPetBattleAddress: getContractAddress('PixPetBattle')
+    PixPetBattleAddress: getContractAddress('PixPetBattle'),
   };
 };
 
-export default useContractAddresses; 
+export default useContractAddresses;
